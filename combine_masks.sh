@@ -3,8 +3,8 @@ export MANGLE_DIR="/research/astro/gama/loveday/sw/mangle2.2"
 
 
 # Combine (zero-weight) NGC masks with (unit-weight) waves region
-$MANGLE_DIR/bin/pixelize mangle_masks/waves_n_rect.ply mangle_masks/starmask_n_reg.ply mangle_masks/ngc_n_reg.ply temp_n_1
-$MANGLE_DIR/bin/pixelize mangle_masks/waves_s_rect.ply mangle_masks/starmask_s_reg.ply mangle_masks/ngc_s_reg.ply mangle_masks/extra_source_s_reg.ply temp_s_1
+$MANGLE_DIR/bin/pixelize mangle_masks/waves_n_rect.ply mangle_masks/starmask_n_reg.ply mangle_masks/ngc_n_reg.ply mangle_masks/ghostmask_n_reg.ply temp_n_1
+$MANGLE_DIR/bin/pixelize mangle_masks/waves_s_rect.ply mangle_masks/starmask_s_reg.ply mangle_masks/ngc_s_reg.ply mangle_masks/extra_source_s_reg.ply mangle_masks/ghostmask_s_reg.ply temp_s_1
 
 # Snap, balkanize & unify
 $MANGLE_DIR/bin/snap temp_n_1 temp_n_2
