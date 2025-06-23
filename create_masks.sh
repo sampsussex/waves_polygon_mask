@@ -24,6 +24,6 @@ $MANGLE_DIR/bin/weight -ic1 -zzero ghostmask_waves_s.dat mangle_masks/ghostmask_
 
 
 # Create mangle masks, zero weighted, for ngcs in waves and s
-$MANGLE_DIR/bin/weight -iv -zzero ngcs_n.dat mangle_masks/ngc_n_reg.ply
-$MANGLE_DIR/bin/weight -iv -zzero ngcs_s.dat mangle_masks/ngc_s_reg.ply
+$MANGLE_DIR/bin/weight -iv -zzero ngc_n.dat mangle_masks/ngc_n_reg.ply
+$MANGLE_DIR/bin/weight -iv -zzero ngc_s.dat mangle_masks/ngc_s_reg.ply
 
