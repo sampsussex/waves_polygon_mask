@@ -13,8 +13,8 @@ $MANGLE_DIR/bin/snap temp_s_1 temp_s_2
 $MANGLE_DIR/bin/balkanize temp_n_2 temp_n_3
 $MANGLE_DIR/bin/balkanize temp_s_2 temp_s_3
 
-$MANGLE_DIR/bin/unify temp_n_3 waves_wide_N_full_mask.ply
-$MANGLE_DIR/bin/unify temp_s_3 waves_wide_S_full_mask.ply
+$MANGLE_DIR/bin/unify temp_n_3 waves_wide_N_full_mask_old_radius_rule.ply
+$MANGLE_DIR/bin/unify temp_s_3 waves_wide_S_full_mask_old_radius_rule.ply
 
 #Generate 1000000 randoms. 
 #$MANGLE_DIR/bin/ransack -r10000000 waves_wide_N_full_mask.ply waves_wide_N_full_mask_randoms.dat
