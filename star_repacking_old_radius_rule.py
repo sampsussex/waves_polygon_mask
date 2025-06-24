@@ -31,8 +31,8 @@ def mask_radius_waves(g):
 stars['masking_radii[deg]'] = mask_radius_waves(stars['phot_g_mean_mag'])
 
 # Filter for waves n and s. Also remove photo_g_mean mag column, and dim GAIA stars. 
-waves_n = stars[(stars['dec'] >= -15) & (stars['phot_g_mean_mag'] <= 16)][['ra', 'dec', 'masking_radii[deg]']]
-waves_s = stars[(stars['dec'] < -15) & (stars['phot_g_mean_mag'] <= 16)][['ra', 'dec', 'masking_radii[deg]']]
+waves_n = stars[(stars['dec'] >= -15) & (stars['phot_g_mean_mag'] < 16)][['ra', 'dec', 'masking_radii[deg]']]
+waves_s = stars[(stars['dec'] < -15) & (stars['phot_g_mean_mag'] < 16)][['ra', 'dec', 'masking_radii[deg]']]
 
 #Save down files in mangle friendly. format. 
 waves_n.to_csv('starmask_waves_n_old_radius_rule.dat', sep=' ', index=False, header=False)
