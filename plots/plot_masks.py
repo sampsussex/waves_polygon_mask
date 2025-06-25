@@ -1,6 +1,7 @@
 import matplotlib
 import numpy as np
 import os
+from tqdm import tqdm
 import astropy.io.fits as pyfits
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ import subprocess
 
 def plot(plotfile = '/its/home/sp624/waves_masking/mangle_code_v2/waves_polygon_mask/plots/waves_wide_N_full_mask_graphics.dat',
          fill=1, grey_max=1,
-         plot_size=(12, 32), plot_file='waves_n_mask.png'):
+         plot_size=(100, 10), plot_file='waves_n_mask_final.png'):
     """
     Plot mangle polygon file.
     fill = 0: boundaries only, 1: completeness grey-scale, 2: black.
@@ -38,7 +39,7 @@ def plot(plotfile = '/its/home/sp624/waves_masking/mangle_code_v2/waves_polygon_
         xcen = np.zeros(npoly)
         ycen = np.zeros(npoly)
 
-        for ipoly in range(npoly):
+        for ipoly in tqdm(range(npoly)):
             args = f.readline().split()
             id[ipoly] = int(args[1])
             npts = int(args[3])
@@ -76,10 +77,11 @@ def plot(plotfile = '/its/home/sp624/waves_masking/mangle_code_v2/waves_polygon_
         f.close()
 
     plt.clf()
-    ax1 = plt.subplot2grid((19,1), (0,0), rowspan=1)
-    ax2 = plt.subplot2grid((19,1), (2,0), rowspan=10)
+    ax1 = plt.subplot2grid((10,1), (0,0), rowspan=1)
+    ax2 = plt.subplot2grid((10,1), (2,0), rowspan=8)
     ax2.set_xlim([157.25, 225.0])
     ax2.set_ylim([-3.95, 3.95])
+    #ax2.set_facecolor('black')
     #ax3 = plt.subplot2grid((19,1), (8,0), rowspan=5)
     #ax4 = plt.subplot2grid((19,1), (14,0), rowspan=5)
     axes = [ax1, ax2] #ax3, ax4]
@@ -98,14 +100,20 @@ def plot(plotfile = '/its/home/sp624/waves_masking/mangle_code_v2/waves_polygon_
     
     ax.set_ylabel('Dec [degrees]')
     ax.set_xlabel('RA [degrees]')
+
 #    plt.subplots_adjust(hspace=0.2)
 #    cmap = matplotlib.cm.viridis
     fig = plt.gcf()
+    print('Starting plotting main mask')
     poly_plot(plotfile, fill)
+    
+    print('Finished plotting main mask, moving to starmask')
 
     #poly_plot("gaia_mask.ply", 2) #Plot mask- Superceeds earlier masking definition
     poly_plot('starmask_n_reg_graphics.dat', 2)
+    print('Finished plotting starmask, now plotting ghostmask')
     poly_plot('ghostmask_n_reg_graphics.dat', 2)
+    print('Finished plotting ghostmask, now plotting ngc mask')
     poly_plot('ngc_n_reg_graphics.dat', 2)
 
     plt.draw()
