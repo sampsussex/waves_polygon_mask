@@ -2,7 +2,7 @@
 A repo for mangle code for generating waves masks.
 This code will generate mangle masks for the waves regions. You must have mangle installed from: https://space.mit.edu/~molly/mangle/. Please note mangle currently does not run on apple silicon.
 
-The python scripts have already been run, but if needed you can rerun them. They output the repacked star/ngc/ghost masks in a mangle friendly format. The outputs are the '*.dat' files. You must unzip the large file 23-06-25_masked_objects_list/Masking/gaiastarmaskwaves.csv.zip before running the python code for generating the starmask dat file. 
+The python scripts have already been run, but if needed you can rerun them. If you do, some manual edits are required for the ngc dat files. These are detailed below. These scripts output the repacked star/ngc/ghost masks in a mangle friendly format. The outputs are the '*.dat' files. You must unzip the large file 23-06-25_masked_objects_list/Masking/gaiastarmaskwaves.csv.zip before running the python code for generating the starmask dat file. 
 
 To run the code, run the shell scripts. They must be run in order; make_waves_wide_rects.sh, create_masks.sh, combine_masks.sh. 
 To alter the compoisition of the mask, change the pixelize command in combine_masks.sh. In this command all the masks are added to the rectangle window. Remove/add as you wish. The default is the 'full mask', i.e. Window-starmask-ghostmask-ngcmask(-extramask for waves-S).

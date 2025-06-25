@@ -35,5 +35,5 @@ waves_n = ghosts[(ghosts['dec'] >= -15) & (ghosts['mag'] <= 16)][['ra', 'dec', '
 waves_s = ghosts[(ghosts['dec'] < -15) & (ghosts['mag'] <= 16)][['ra', 'dec', 'masking_radii[deg]']]
 
 #Save down files in mangle friendly. format. 
-waves_n.to_csv('ghostmask_waves_n.dat', sep=' ', index=False, header=False)
-waves_s.to_csv('ghostmask_waves_s.dat', sep=' ', index=False, header=False)
+waves_n.to_csv('input_data/ghostmask_waves_n.dat', sep=' ', index=False, header=False)
+waves_s.to_csv('input_data/ghostmask_waves_s.dat', sep=' ', index=False, header=False)

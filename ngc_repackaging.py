@@ -50,8 +50,8 @@ def append_csv_files_as_polygons(folder_path, output_file_n, output_file_s):
 
 # Example usage:
 folder_path = '23-06-25_stellar_ngc_lists/Masking/MaskPolygons_v1'
-output_file_n = 'ngc_n.dat'
-output_file_s = 'ngc_s.dat'
+output_file_n = 'input_data/ngc_n.dat'
+output_file_s = 'input_data/ngc_s.dat'
 
 append_csv_files_as_polygons(folder_path, output_file_n, output_file_s)
 

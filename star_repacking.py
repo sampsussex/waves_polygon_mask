@@ -34,5 +34,5 @@ waves_n = stars[(stars['dec'] >= -15) & (stars['phot_g_mean_mag'] < 16)][['ra', 
 waves_s = stars[(stars['dec'] < -15) & (stars['phot_g_mean_mag'] < 16)][['ra', 'dec', 'masking_radii[deg]']]
 
 #Save down files in mangle friendly. format. 
-waves_n.to_csv('starmask_waves_n.dat', sep=' ', index=False, header=False)
-waves_s.to_csv('starmask_waves_s.dat', sep=' ', index=False, header=False)
+waves_n.to_csv('input_data/starmask_waves_n.dat', sep=' ', index=False, header=False)
+waves_s.to_csv('input_data/starmask_waves_s.dat', sep=' ', index=False, header=False)
