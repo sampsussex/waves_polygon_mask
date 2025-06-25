@@ -7,7 +7,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import subprocess
 
-def plot_n(plotfile = 'plots/waves_wide_N_full_mask_graphics.dat',
+def plot_n(plotfile = 'waves_wide_N_full_mask_graphics.dat',
          fill=1, grey_max=1,
          plot_size=(100, 10), plot_file='waves_n_mask_final.png'):
     """
@@ -110,11 +110,11 @@ def plot_n(plotfile = 'plots/waves_wide_N_full_mask_graphics.dat',
     print('Finished plotting main mask, moving to starmask')
 
     #poly_plot("gaia_mask.ply", 2) #Plot mask- Superceeds earlier masking definition
-    poly_plot('plots/starmask_n_reg_graphics.dat', 2)
+    poly_plot('starmask_n_reg_graphics.dat', 2)
     print('Finished plotting starmask, now plotting ghostmask')
-    poly_plot('plots/ghostmask_n_reg_graphics.dat', 2)
+    poly_plot('ghostmask_n_reg_graphics.dat', 2)
     print('Finished plotting ghostmask, now plotting ngc mask')
-    poly_plot('plots/ngc_n_reg_graphics.dat', 2)
+    poly_plot('ngc_n_reg_graphics.dat', 2)
 
     plt.draw()
     if plot_file:
@@ -123,16 +123,7 @@ def plot_n(plotfile = 'plots/waves_wide_N_full_mask_graphics.dat',
     exit()
 
 
-import matplotlib
-import numpy as np
-import os
-from tqdm import tqdm
-import astropy.io.fits as pyfits
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import subprocess
-
-def plot_s(plotfile = 'plots/waves_wide_S_full_mask_graphics.dat',
+def plot_s(plotfile = 'waves_wide_S_full_mask_graphics.dat',
          fill=1, grey_max=1,
          plot_size=(100, 10), plot_file='waves_s_mask_final.png'):
     """
@@ -223,11 +214,13 @@ def plot_s(plotfile = 'plots/waves_wide_S_full_mask_graphics.dat',
     poly_plot(plotfile, fill)
     
     print('Finished plotting main mask, moving to starmask')
-    poly_plot('plots/starmask_s_reg_graphics.dat', 2)  # Updated filename for south region
+    poly_plot('starmask_s_reg_graphics.dat', 2)  # Updated filename for south region
     print('Finished plotting starmask, now plotting ghostmask')
-    poly_plot('plots/ghostmask_s_reg_graphics.dat', 2)  # Updated filename for south region
+    poly_plot('ghostmask_s_reg_graphics.dat', 2)  # Updated filename for south region
     print('Finished plotting ghostmask, now plotting ngc mask')
-    poly_plot('plots/ngc_s_reg_graphics.dat', 2)  # Updated filename for south region
+    poly_plot('ngc_s_reg_graphics.dat', 2)  # Updated filename for south region
+    print('Finished plotting ngc mask, now plotting extra mask')
+    poly_plot('extra_source_s_reg_graphics.dat', 2)
 
     plt.draw()
     if plot_file:
