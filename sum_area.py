@@ -1,28 +1,71 @@
 import pandas as pd
 import numpy as np
+import os
 
-# Waves N
-df_n = pd.read_csv("mangle_masks/waves_wide_N_area.dat", delim_whitespace=True, skiprows=2, header=None)
-df_n[0] = df_n[0].astype(float)
-total_area_n = df_n[0].sum()
-# convert to sq deg
-total_area_n = total_area_n*180**2/(np.pi**2)
-print(f"waves wide N total area: {total_area_n} sq deg")
+# -----------------------------------------------------
+# Function to read and sum areas from a .dat file
+# -----------------------------------------------------
+def read_area_file(filename):
+    df = pd.read_csv(filename, delim_whitespace=True, skiprows=2, header=None)
+    df[0] = df[0].astype(float)
+    total_area = df[0].sum()
+    # convert steradians → square degrees
+    total_area_sqdeg = total_area * (180 / np.pi) ** 2
+    return total_area_sqdeg
 
-# Waves S
-df_s = pd.read_csv("mangle_masks/waves_wide_S_area.dat", delim_whitespace=True, skiprows=2, header=None)
-df_s[0] = df_s[0].astype(float)
-total_area_s = df_s[0].sum()
-# convert to sq deg
-total_area_s = total_area_s*180**2/(np.pi**2)
-print(f"waves wide S total area: {total_area_s} sq deg")
+# -----------------------------------------------------
+# Define the masks and their corresponding filenames
+# -----------------------------------------------------
+masks = {
+    "full_mask": {
+        "N": "mangle_masks/waves_wide_N_area.dat",
+        "S": "mangle_masks/waves_wide_S_area.dat"
+    },
+    "star_mask": {
+        "N": "mangle_masks/waves_wide_N_star_mask_area.dat",
+        "S": "mangle_masks/waves_wide_S_star_mask_area.dat"
+    },
+    "star_ghost_mask": {
+        "N": "mangle_masks/waves_wide_N_star_ghost_mask_area.dat",
+        "S": "mangle_masks/waves_wide_S_star_ghost_mask_area.dat"
+    },
+    "star_ngc+_mask": {
+        "N": "mangle_masks/waves_wide_N_star_ngc+_mask_area.dat",
+        "S": "mangle_masks/waves_wide_S_star_ngc+_mask_area.dat"
+    }
+}
 
-# Combined total
-total_area_combined = total_area_n + total_area_s
-print(f"waves wide combined total area: {total_area_combined} sq deg")
+# -----------------------------------------------------
+# Compute total areas and store results
+# -----------------------------------------------------
+results = []
 
-# Save all results to a text file
-with open("waves_wide_total_area_full_mask.txt", "w") as f:
-    f.write(f"waves wide N total area: {total_area_n} sq deg\n")
-    f.write(f"waves wide S total area: {total_area_s} sq deg\n")
-    f.write(f"waves wide combined total area: {total_area_combined} sq deg\n")
+for mask_name, files in masks.items():
+    entry = {"Mask Type": mask_name}
+
+    if os.path.exists(files["N"]):
+        area_n = read_area_file(files["N"])
+    else:
+        area_n = np.nan
+        print(f"Warning Missing file: {files['N']}")
+
+    if os.path.exists(files["S"]):
+        area_s = read_area_file(files["S"])
+    else:
+        area_s = np.nan
+        print(f"Warning Missing file: {files['S']}")
+
+    entry["WAVESwide N (sq deg)"] = area_n
+    entry["WAVESwide S (sq deg)"] = area_s
+    entry["WAVESwide N+S (sq deg)"] = area_n + area_s if not np.isnan(area_n + area_s) else np.nan
+
+    results.append(entry)
+
+# -----------------------------------------------------
+# Save to CSV
+# -----------------------------------------------------
+df_out = pd.DataFrame(results)
+df_out.to_csv("waves_wide_total_areas.csv", index=False)
+
+print("✅ Saved results to 'waves_wide_total_areas.csv'")
+print(df_out)

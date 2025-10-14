@@ -4,36 +4,46 @@ import numpy as np
 #set filepath
 ghosts_filepath = '23-06-25_masked_objects_list/Masking/GhostLocations_v0.csv'
 
+
 #Load csv with pands
+print("Loading ghost locations from:", ghosts_filepath)
 ghosts = pd.read_csv(ghosts_filepath)
 
-def mask_radius_waves(g):
-    """
-    Calculate r[deg] based on the given formula.
+#def mask_radius_waves(g):
+#    """
+#    Calculate r[deg] based on the given formula.
+#
+#    Parameters:
+#        g (float or array-like): Input magnitude.
+#
+#    Returns:
+#        numpy.ndarray: Calculated r[deg].
+#    """
+#    g = np.asarray(g)  # Ensure g is a NumPy array
+#    r = np.zeros_like(g, dtype=float)
+#    mask1 = g > 6
+#    mask2 = (g > 2.5) & (g <= 6)
+#    mask3 = (g <= 2.5)
+#    r[mask1] = 3.39
+#    r[mask2] = 10**(1.07-0.09*g[mask2])
+#    r[mask3] = 7
+#    return r/60 
 
-    Parameters:
-        g (float or array-like): Input magnitude.
 
-    Returns:
-        numpy.ndarray: Calculated r[deg].
-    """
-    g = np.asarray(g)  # Ensure g is a NumPy array
-    r = np.zeros_like(g, dtype=float)
-    mask1 = g > 6
-    mask2 = (g > 2.5) & (g <= 6)
-    mask3 = (g <= 2.5)
-    r[mask1] = 3.39
-    r[mask2] = 10**(1.07-0.09*g[mask2])
-    r[mask3] = 7
-    return r/60 
+# mismatches from masking file going from the mag column. Change to read radii
+# directly.
 
 # Get masking Radii
-ghosts['masking_radii[deg]'] = mask_radius_waves(ghosts['mag'])
+#ghosts['masking_radii[deg]'] = mask_radius_waves(ghosts['mag'])
 
+print("Calculating masking radii from radius column in arcmin")
+ghosts['masking_radii[deg]'] = ghosts['radius'] / 60
 # Filter for waves n and s. Also remove photo_g_mean mag column, and dim GAIA stars. 
 waves_n = ghosts[(ghosts['dec'] >= -15) & (ghosts['mag'] <= 16)][['ra', 'dec', 'masking_radii[deg]']]
 waves_s = ghosts[(ghosts['dec'] < -15) & (ghosts['mag'] <= 16)][['ra', 'dec', 'masking_radii[deg]']]
 
 #Save down files in mangle friendly. format. 
+print("Saving down ghostmask files to input_data/ghostmask_waves_n.dat and input_data/ghostmask_waves_s.dat")
 waves_n.to_csv('input_data/ghostmask_waves_n.dat', sep=' ', index=False, header=False)
 waves_s.to_csv('input_data/ghostmask_waves_s.dat', sep=' ', index=False, header=False)
+print("Done")
